@@ -17,7 +17,7 @@ function HomeStackScreen() {
 
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="SignIn" component={HomeScreen} />
+      <HomeStack.Screen name="Home" component={HomeScreen} />
       <HomeStack.Screen name="SignUp" component={HomeConnect} />
     </HomeStack.Navigator>
   );

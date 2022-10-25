@@ -9,6 +9,8 @@ import {
 import * as React from "react";
 import { userContext } from "../context/userContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import PublicProfil from "./PublicProfil";
+import Comment from "./Comment";
 function Post(props) {
   const { pseudo } = React.useContext(userContext);
 
@@ -116,13 +118,16 @@ function Post(props) {
     <View style={styles.container}>
       {select3 ? (
         <View>
-          <Text style={styles.text}>{props.content.pseudo}</Text>
+          <PublicProfil content={props.content.pseudo} />
           <Pressable
             //style={styles.signUpBtn}
             title="Pas encore inscrit??"
             onPress={() => clickOff3()}
           >
-            <Text style={styles.text}>logo quitter</Text>
+            <Image
+              style={styles.LikeLogo}
+              source={require("C:/Users/seb 2/Desktop/Formation Javascript Fullstack/reac native/appvr/assets/image/exitlogo.png")}
+            ></Image>
           </Pressable>
         </View>
       ) : (
@@ -149,7 +154,10 @@ function Post(props) {
                 title="Pas encore inscrit??"
                 onPress={() => clickOff()}
               >
-                <Text style={styles.text}>logo quitter</Text>
+                <Image
+                  style={styles.LikeLogo}
+                  source={require("C:/Users/seb 2/Desktop/Formation Javascript Fullstack/reac native/appvr/assets/image/exitlogo.png")}
+                ></Image>
               </Pressable>
             </View>
           ) : (
@@ -166,7 +174,6 @@ function Post(props) {
                 <View></View>
               )}
               <Text style={styles.text}>{props.content.message}</Text>
-
               <Pressable
                 //style={styles.signUpBtn}
                 title="Pas encore inscrit??"
@@ -174,40 +181,60 @@ function Post(props) {
               >
                 <Text style={styles.text}>{props.content.pseudo}</Text>
               </Pressable>
-              <Pressable
-                //style={styles.signUpBtn}
-                title="Pas encore inscrit??"
-                onPress={() => clickLike()}
-              >
-                <Text style={styles.text}>Envoyer like({likeList.length})</Text>
-              </Pressable>
-              <Pressable
-                //  style={styles.signUpBtn}
-                title="Pas encore inscrit??"
-                onPress={() => click()}
-              >
-                <Text style={styles.text}>ajouter commentaire</Text>
-              </Pressable>
-              {select2 ? (
-                <View>
-                  <Text style={styles.text}>Commentaire</Text>
+              <View style={styles.container3}>
+                <Pressable
+                  //style={styles.signUpBtn}
+                  title="Pas encore inscrit??"
+                  onPress={() => clickLike()}
+                >
+                  <Image
+                    style={styles.LikeLogo}
+                    source={require("C:/Users/seb 2/Desktop/Formation Javascript Fullstack/reac native/appvr/assets/image/likebtn.png")}
+                  ></Image>
+
+                  <Text style={styles.text}>({likeList.length})</Text>
+                </Pressable>
+                <Pressable
+                  //  style={styles.signUpBtn}
+                  title="Pas encore inscrit??"
+                  onPress={() => click()}
+                >
+                  <Image
+                    style={styles.LikeLogo}
+                    source={require("C:/Users/seb 2/Desktop/Formation Javascript Fullstack/reac native/appvr/assets/image/addcombtn.png")}
+                  ></Image>
+                </Pressable>
+                {select2 ? (
+                  <View>
+                    <Text style={styles.text}>Commentaire</Text>
+                    {commentList.map((item) => (
+                      <Comment content={item} />
+                    ))}
+                    <Pressable
+                      // style={styles.signUpBtn}
+                      title="Pas encore inscrit??"
+                      onPress={() => clickOff2()}
+                    >
+                      <Image
+                        style={styles.LikeLogo}
+                        source={require("C:/Users/seb 2/Desktop/Formation Javascript Fullstack/reac native/appvr/assets/image/flechetop.png")}
+                      ></Image>
+                    </Pressable>
+                  </View>
+                ) : (
                   <Pressable
                     // style={styles.signUpBtn}
                     title="Pas encore inscrit??"
-                    onPress={() => clickOff2()}
+                    onPress={() => click2()}
                   >
-                    <Text style={styles.text}>logo quitter</Text>
+                    <Image
+                      style={styles.LikeLogo}
+                      source={require("C:/Users/seb 2/Desktop/Formation Javascript Fullstack/reac native/appvr/assets/image/commBtn.png")}
+                    ></Image>
+                    <Text style={styles.text}>({commentList.length})</Text>
                   </Pressable>
-                </View>
-              ) : (
-                <Pressable
-                  // style={styles.signUpBtn}
-                  title="Pas encore inscrit??"
-                  onPress={() => click2()}
-                >
-                  <Text style={styles.text}>({commentList.length})</Text>
-                </Pressable>
-              )}
+                )}
+              </View>
             </View>
           )}
         </View>
@@ -231,11 +258,22 @@ const styles = StyleSheet.create({
     width: 380,
     height: 200,
   },
+  LikeLogo: {
+    width: 50,
+    height: 50,
+    marginRight: 40,
+    marginLeft: 40,
+  },
   container: {
     backgroundColor: "rgba(0, 0, 0, 0.6)",
     justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
     margin: 10,
+  },
+  container3: {
+    display: "flex",
+    flexDirection: "row",
+    // alignItems: "center",
   },
 });
 export default Post;

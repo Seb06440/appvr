@@ -9,6 +9,7 @@ import {
   ImageBackground,
   Pressable,
   ScrollView,
+  Image,
 } from "react-native";
 import styles from "../styles/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,7 +18,7 @@ import Post from "./Post";
 import { userContext } from "../context/userContext";
 
 function HomeScreen({ navigation }) {
-  const { email, setEmail } = React.useContext(userContext);
+  const { email, setEmail, profilPicture } = React.useContext(userContext);
   const [inputEmail, setInputEmail] = React.useState("");
   const [inputPassword, setInputPassword] = React.useState("");
   const [postList, setPostListe] = React.useState([]);
@@ -124,7 +125,16 @@ function HomeScreen({ navigation }) {
         ) : (
           <View>
             <ScrollView>
-              <Text style={styles.modalText}> Connecté: {email}</Text>
+              <View style={styles.containerUser}>
+                <Image
+                  style={styles.image2}
+                  source={{
+                    uri: `http://192.168.1.19:3005/images/${profilPicture}`,
+                  }}
+                ></Image>
+                <Text style={styles.modalText}>{email}</Text>
+              </View>
+
               {postList.map((item, key) => (
                 <Post content={item} key={key} />
               ))}

@@ -12,6 +12,7 @@ import { userContext } from "./context/userContext";
 export default function App(props) {
   const [email, setEmail] = React.useState("");
   const [pseudo, setPseudo] = React.useState("");
+  const [profilPicture, setProfilPicture] = React.useState("");
 
   const Tab = createBottomTabNavigator();
   React.useEffect(() => {
@@ -35,6 +36,7 @@ export default function App(props) {
         console.log(result);
         setPseudo(result.profil.pseudo);
         setEmail(result.profil.email);
+        setProfilPicture(result.profil.profilPicture);
       } else {
         console.log(result);
       }
@@ -49,12 +51,14 @@ export default function App(props) {
         setEmail,
         pseudo,
         setPseudo,
+        profilPicture,
+        setProfilPicture,
       }}
     >
       {props.children}
       <NavigationContainer>
         <Tab.Navigator screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="Home" component={HomeStackScreen} />
+          <Tab.Screen name="FirstHome" component={HomeStackScreen} />
           <Tab.Screen name="Settings" component={SettingsStackScreen} />
         </Tab.Navigator>
       </NavigationContainer>
